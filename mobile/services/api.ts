@@ -1,21 +1,15 @@
 import axios from "axios";
 import { CreateContact } from "../interfaces/CreateContact";
-
 const api = axios.create({
-  baseURL: "http://localhost:5000/api",
+  baseURL: "http://localhost:5001/api", // Use your local machine IP
 });
 
 export const getContacts = async (search: string) => {
   try {
     const response = await api.get(
-      `contact/${search ? "?searchTerm=" + search : ""}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
+      `contact/${search ? "?searchTerm=" + search : ""}`
     );
-    return response;
+    return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       if (error.response && error.response.status === 404) {
@@ -29,11 +23,7 @@ export const getContacts = async (search: string) => {
 
 export const getContactById = async (id: string) => {
   try {
-    const response = await api.get(`/contact/${id}`, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await api.get(`/contact/${id}`);
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -51,11 +41,7 @@ export const getContactById = async (id: string) => {
 
 export const createContact = async (contact: CreateContact) => {
   try {
-    const response = await api.post("/contact", contact, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await api.post("/contact", contact);
     return response.data;
   } catch (error) {
     console.log("An error occurred", error);
@@ -65,11 +51,7 @@ export const createContact = async (contact: CreateContact) => {
 
 export const updateContact = async (contact: CreateContact) => {
   try {
-    const response = await api.put("/contact", contact, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await api.put("/contact", contact);
     return response;
   } catch (error) {
     console.log("An error occurred", error);

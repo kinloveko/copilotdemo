@@ -6,21 +6,17 @@ services:
       context: ./backend/backend
       dockerfile: Dockerfile
     ports:
-      - "5000:80"
-    networks:
-      - copilotdemo-network
+      - "5001:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
 
   mobile:
     build:
       context: ./mobile
       dockerfile: Dockerfile
     ports:
-      - "19000:19000"
+      - "8081:8081" # Change this line
       - "19001:19001"
       - "19002:19002"
-    networks:
-      - copilotdemo-network
-
-networks:
-  copilotdemo-network:
-    driver: bridge
+    environment:
+      - EXPO_DEVTOOLS_LISTEN_ADDRESS=0.0.0.0

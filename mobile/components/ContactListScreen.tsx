@@ -70,7 +70,7 @@ const ContactListScreen = () => {
           </Text>
         </TouchableOpacity>
       </View>
-      {contacts.length > 0 ? (
+      {contacts?.length > 0 ? (
         <FlatList
           data={contacts}
           style={{ flex: 1 }}
